@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TecBlog - Seu blog de tecnologias</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='site/css/styles.css') }}">
+    </head>
+<body>
+        
+    <header id="area-cabecalho"> <!-- Abertura Área de Cabeçalho-->
+
+        <div id="area-logo">
+            <h1>Tec<span class="branco">Blog</span></h1>
+        </div>
+        <nav id="area-menu">
+            <a href="#">Home</a>
+            <a href="#">Jogos</a>
+            <a href="#">Celulares</a>
+            <a href="#">Informática</a>
+            <a href="#">Eletrônicos</a>
+        </nav>
+
+    </header> <!-- Fechamento Área de Cabeçalho-->
+
+    <main id="area-principal">
+        <section id="area-postagens">
+            {% for post in posts %}
+            <article class="postagem">
+                <h2>{{ post['title'] }}</h2>
+                <time datetime="{{ post['date_posted'] }}" class="data-postagem">
+                    Postado em {{ post['date_posted'] | datetimeformat('%d/%m/%Y') }}
+                </time>
+                <img src="data:image/png;base64,{{ post['img'] }}" alt="Imagem da postagem" style="max-width: 100%; height: auto;">
+                <p>{{ post['content'] }}</p>
+                <a href="{{ post['link'] }}">Leia mais</a>
+            </article>
+            {% endfor %}
+        </section>
+        
+
+        <aside id="area-lateral">
+        
+            <section class="conteudo-lateral">
+                <h3>Postagens Recentes</h3>
+                {% for post in posts[:4] %}
+                <div class="postagem-lateral">
+                    <p>{{ post['title'] }}</p>
+                    <a href="{{ post['link'] }}">Leia mais</a>
+                </div>
+                {% endfor %}
+            </section>
+            
+
+            <section class="conteudo-lateral">
+                <h3>Categorias</h3>
+
+                <a href="#"> Jogos</a><br>
+                <a href="#"> Celulares</a><br>
+                <a href="#"> Informática</a><br>
+                <a href="#"> Eletrônicos</a><br>
+            
+            </section>
+
+
+        </aside>
+
+    </main>
+
+
+    <footer>
+        &copy Kingston Sistemas  - Todos os direitos reservados
+    </footer>
+
+</body>
+</html>
